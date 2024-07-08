@@ -109,3 +109,58 @@ void addStudent() {
             if (clubChoice < 1 || clubChoice > 5) {
                 cout << "Invalid club choice." << endl;
             } else {
+ Activity& club = clubs[clubChoice - 1];
+                if (club.currentCapacity < club.maxCapacity) {
+                    if ((student.gender == "Male" && club.currentMale < club.maxMale) ||
+                        (student.gender == "Female" && club.currentFemale < club.maxFemale)) {
+                        student.activities.push_back(club.name);
+                        club.currentCapacity++;
+                        if (student.gender == "Male") club.currentMale++;
+                        else club.currentFemale++;
+                        cout << "Added to " << club.name << endl;
+                    } else {
+                        cout << "Gender capacity reached for " << club.name << endl;
+                    }
+                } else {
+                    cout << club.name << " is full." << endl;
+                }
+            }
+        } else {
+            cout << "Invalid choice." << endl;
+        }
+
+        cout << "Add another activity? (Y/N): ";
+        cin >> choice;
+        choice = tolower(choice);
+    } while (choice == 'y' && student.activities.size() < 3);
+
+    students.push_back(student);
+    cout << "Student added successfully." << endl;
+}
+
+void viewStudents() {
+    cout << "1. View All Students" << endl;
+    cout << "2. View Students by Group" << endl;
+    int choice;
+    cin >> choice;
+
+    if (choice == 1) {
+        for (const auto& student : students) {
+            cout << student.firstname << " " << student.surname << ", Group: " << student.group << ", Activities: ";
+            for (const auto& activity : student.activities) {
+                cout << activity << " ";
+            }
+            cout << endl;
+        }
+    } else if (choice == 2) {
+        cout << "Enter group number (1, 2, or 3): ";
+        int group;
+        cin >> group;
+
+        for (const auto& student : students) {
+            if (student.group == group) {
+                cout << student.firstname << " " << student.surname << ", Activities: ";
+                for (const auto& activity : student.activities) {
+                    cout << activity << " ";
+                }
+                cout << endl;
