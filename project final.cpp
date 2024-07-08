@@ -209,3 +209,69 @@ void viewGroupedStudents() {
         }
         cout << endl;
     }
+
+    cout << "Group 3:" << endl;
+    for (const auto& student : group3) {
+        cout << student.firstname << " " << student.surname << ", Activities: ";
+        for (const auto& activity : student.activities) {
+            cout << activity << " ";
+        }
+        cout << endl;
+    }
+}
+
+void saveToFile() {
+    ofstream file("students.csv");
+    if (file.is_open()) {
+        file << "Firstname,Surname,Gender,Age,Group,Activities\n";
+        for (const auto& student : students) {
+            file << student.firstname << "," << student.surname << "," << student.gender << "," << student.age << "," << student.group << ",";
+            for (size_t i = 0; i < student.activities.size(); ++i) {
+                file << student.activities[i];
+                if (i < student.activities.size() - 1) {
+                    file << ";";
+                }
+            }
+            file << "\n";
+        }
+        file.close();
+        cout << "Students data saved to students.csv" << endl;
+    } else {
+        cout << "Unable to open file for saving." << endl;
+    }
+}
+
+int main() {
+    int choice;
+    do {
+        displayMenu();
+        cin >> choice;
+        switch (choice) {
+            case 1:
+                addStudent();
+                break;
+            case 2:
+                viewStudents();
+                break;
+            case 3:
+                viewClubs();
+                break;
+            case 4:
+                viewSports();
+                break;
+            case 5:
+                viewGroupedStudents();
+                break;
+            case 6:
+                saveToFile();
+                break;
+            case 7:
+                cout << "Exiting program.\n";
+                break;
+            default:
+                cout << "Invalid choice. Please enter a number between 1 and 7.\n";
+        }
+    } while (choice != 7);
+
+    return 0;
+}
