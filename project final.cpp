@@ -164,3 +164,48 @@ void viewStudents() {
                     cout << activity << " ";
                 }
                 cout << endl;
+ }
+        }
+    } else {
+        cout << "Invalid choice." << endl;
+    }
+}
+
+void viewClubs() {
+    for (const auto& club : clubs) {
+        cout << club.name << " - Capacity: " << club.currentCapacity << "/" << club.maxCapacity << endl;
+    }
+}
+
+void viewSports() {
+    for (const auto& sport : sports) {
+        cout << sport.name << " - Capacity: " << sport.currentCapacity << "/" << sport.maxCapacity << endl;
+    }
+}
+
+void viewGroupedStudents() {
+    vector<Student> group1, group2, group3;
+
+    for (const auto& student : students) {
+        if (student.group == 1) group1.push_back(student);
+        else if (student.group == 2) group2.push_back(student);
+        else if (student.group == 3) group3.push_back(student);
+    }
+
+    cout << "Group 1:" << endl;
+    for (const auto& student : group1) {
+        cout << student.firstname << " " << student.surname << ", Activities: ";
+        for (const auto& activity : student.activities) {
+            cout << activity << " ";
+        }
+        cout << endl;
+    }
+
+    cout << "Group 2:" << endl;
+    for (const auto& student : group2) {
+        cout << student.firstname << " " << student.surname << ", Activities: ";
+        for (const auto& activity : student.activities) {
+            cout << activity << " ";
+        }
+        cout << endl;
+    }
